@@ -58,11 +58,27 @@ Every single topic across all three tracks is backed by real, verified, typed ex
 3. **🤖 AI / Machine Learning (Python):**
    - *12 Skills:* Python Foundations ➔ Functions & OOP ➔ NumPy ➔ Pandas Wrangling ➔ Data Visualization (Seaborn/Matplotlib) ➔ Statistics & Probability ➔ Data Preprocessing ➔ Supervised Learning ➔ Model Evaluation & ROC-AUC ➔ Feature Engineering & Pipelines ➔ Neural Networks ➔ Model Deployment with FastAPI.
 
-### 🎮 Gamification & Daily Streaks
-- **Progression & XP:** Earn XP on every completed task (15–40 XP), quest step (10 XP), daily quest completion bonus (+50 XP), challenge, and project milestone (50–100 XP).
-- **Calendar-Based Streaks:** Streaks are calculated using local calendar days (`YYYY-MM-DD`). Consecutive calendar days advance the streak; missed calendar days safely reset the streak; same-day completions never inflate it.
-- **9 Achievement Badges:** Unlock badges such as *First Steps*, *On a Roll (3-Day Streak)*, *Week Warrior (7-Day Streak)*, *Problem Solver*, *Builder*, *Skill Unlocked*, *Ship It*, and *Speed Learner*.
-- **Interactive Feedback:** Animated floating XP bursts (`+XP`) and celebration toast notifications.
+### 🤖 CodeQuest AI — Context-Aware Coding Mentor
+*Tagline: "Your personal coding mentor, one question away."*
+
+Accessible from anywhere in the application via a persistent floating launcher or contextual in-page actions:
+- **Collapsible Side-Panel Interface:** 420px wide desktop panel (full-screen responsive on mobile) with smooth transitions, session persistence, and zero screen obstruction.
+- **Deep Context Awareness:** Automatically synchronizes with the user's active route, track (DSA, Full Stack, AI/ML), selected topic, current daily quest, completed skills, active project, and milestone.
+- **Pedagogical Mentorship Modes:**
+  - **Explain Concepts:** Deep-dives into theory, time/space complexity analysis, and realistic code patterns.
+  - **Progressive Hinting:** Guides learners through roadblocked tasks step-by-step without giving away answers immediately.
+  - **Code Debugging:** Analyzes error messages, identifies edge cases, and provides corrected snippets with explanations.
+  - **Resource Citing:** Recommends verified links directly from the 36-topic catalogue (`takeuforward`, `MDN`, `Full Stack Open`, `Google ML`).
+  - **Architecture Reviews:** Guides portfolio project milestones, system design, and file structuring.
+- **Flexible Provider Architecture:**
+  - **Built-in Contextual Offline Mentor Engine:** Operates instantly out-of-the-box with zero API keys required, delivering curated contextual assistance.
+  - **Custom Server Endpoint Support:** Configurable via in-panel settings to connect to your remote `/api/chat` or LLM gateway.
+- **Rich Markdown & Code Blocks:** Supports syntax-highlighted code blocks, one-click copy buttons, structured bullet points, and smart contextual prompt suggestions.
+
+### 🎨 Linear & Notion-Inspired Professional Design System
+Engineered for focus and visual restraint:
+- **Palette:** Warm off-white canvas (`#F8F9FB`), clean white surfaces (`#FFFFFF`), crisp charcoal typography (`#17191D`), muted secondary text (`#68707D`), and subtle borders (`#E5E7EB`) with an understated accent blue (`#356AE6`).
+- **Restrained Visuals:** Clean 6–8px border radii, subtle 1px dividers, high-density scannable tables, and zero distracting arcade neon or purple gradients.
 
 ### 🏗️ "Build My Project" Portfolio Trackers
 Each path features 3 graduated starter projects (9 total) that evolve as you learn:
@@ -93,7 +109,7 @@ Each path features 3 graduated starter projects (9 total) that evolve as you lea
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/codequest.git
+   git clone https://github.com/ashwin-kwatra/codequest.git
    cd codequest
    ```
 
@@ -144,27 +160,30 @@ For quick evaluation during live demonstrations or judging:
 
 ```
 ├── src/
-│   ├── components/         # Reusable UI components (Sidebar, etc.)
-│   ├── context/            # AppContext (global gamification & quest actions)
+│   ├── components/         # Reusable UI components (Sidebar, TopBar, etc.)
+│   │   └── AiAssistant/    # CodeQuest AI floating launcher, side panel & Markdown renderer
+│   ├── context/            # AppContext (gamification/quests) & AiContext (mentor state)
 │   ├── data/
 │   │   ├── curriculum.ts   # Core track skills, tasks, and portfolio projects
 │   │   └── resources.ts    # Centralized, typed curated resources catalogue (36 topics)
 │   ├── engine/
+│   │   ├── aiContext.ts    # Learner context extraction (track, topic, quest, milestone)
+│   │   ├── aiProvider.ts   # AI provider interface, server gateway & offline contextual mentor
 │   │   ├── dailyQuest.ts   # Daily quest generator & calendar date engine
 │   │   └── recommendation.ts # Timeline calculator & archetype inference
 │   ├── pages/
 │   │   ├── Landing.tsx     # Hero page & demo profile launchers
 │   │   ├── Onboarding.tsx  # 7-step career assessment wizard
 │   │   ├── Recommendation.tsx # Path evaluation & first task preview
-│   │   ├── Dashboard.tsx   # Quest-First Hero, 7-day history, stats & missions
-│   │   ├── Roadmap.tsx     # Connected skill tree with curated resource modals
-│   │   ├── TaskDetail.tsx  # Step-by-step instructions, curated guides & XP triggers
-│   │   ├── Projects.tsx    # Curated portfolio projects & milestone checklists
+│   │   ├── Dashboard.tsx   # Quest-First Hero, 7-day history, stats & AI triggers
+│   │   ├── Roadmap.tsx     # Connected skill tree with curated resource & AI modals
+│   │   ├── TaskDetail.tsx  # Step-by-step instructions, curated guides & AI hint triggers
+│   │   ├── Projects.tsx    # Curated portfolio projects & AI architecture guidance
 │   │   └── Profile.tsx     # Stats, achievements, persona card & track switcher
 │   ├── store/              # localStorage persistence layer & calendar streak logic
-│   ├── types.ts            # Core TypeScript interfaces (CuratedResource, DailyQuest, etc.)
-│   ├── App.tsx             # Route definitions & layout wrappers
-│   ├── index.css           # Global design system & animations
+│   ├── types.ts            # Core TypeScript interfaces (CuratedResource, DailyQuest, LearnerContext, etc.)
+│   ├── App.tsx             # Route definitions & AI assistant mounting
+│   ├── index.css           # Refined Linear/Notion-inspired design system
 │   └── main.tsx            # Application entry point
 ├── package.json
 └── vite.config.ts

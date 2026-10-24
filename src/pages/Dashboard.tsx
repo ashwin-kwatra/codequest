@@ -11,8 +11,10 @@ import {
   ChevronRight,
   FolderGit2,
   Award,
+  Sparkles,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useAiAssistant } from '../context/AiContext';
 import { TRACKS, ACHIEVEMENTS } from '../data/curriculum';
 import { xpProgress } from '../store/storage';
 import { getNextTask } from '../engine/recommendation';
@@ -26,6 +28,7 @@ const TRACK_META = {
 
 export default function Dashboard() {
   const { state, toggleQuestStepAction, startNextQuestEarlyAction } = useApp();
+  const { openPanel } = useAiAssistant();
   const navigate = useNavigate();
   const { gamification, roadmap, profile } = state;
   const track = profile.selectedTrack ?? 'fullstack';
@@ -173,22 +176,32 @@ export default function Dashboard() {
               </p>
             </div>
 
-            {/* Streak & Consistency Pill */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '6px 12px',
-              borderRadius: 6,
-              backgroundColor: 'var(--bg-subtle)',
-              border: '1px solid var(--border)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-secondary)', fontWeight: 500 }}>
-                <span style={{ color: 'var(--warning)', fontWeight: 600 }}>🔥 {gamification.streak}</span> day streak
-              </div>
-              <div style={{ width: 1, height: 14, backgroundColor: 'var(--border-strong)' }} />
-              <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{gamification.totalQuestsCompleted || 0}</span> completed
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                onClick={() => openPanel({ initialPrompt: `Explain today's learning plan for ${dailyQuest.topicTitle} and give me guidance on how to complete it.` })}
+                className="btn btn-secondary btn-sm"
+                style={{ fontSize: 12, gap: 5 }}
+              >
+                <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask AI Mentor
+              </button>
+
+              {/* Streak & Consistency Pill */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '6px 12px',
+                borderRadius: 6,
+                backgroundColor: 'var(--bg-subtle)',
+                border: '1px solid var(--border)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--text-secondary)', fontWeight: 500 }}>
+                  <span style={{ color: 'var(--warning)', fontWeight: 600 }}>🔥 {gamification.streak}</span> day streak
+                </div>
+                <div style={{ width: 1, height: 14, backgroundColor: 'var(--border-strong)' }} />
+                <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{gamification.totalQuestsCompleted || 0}</span> completed
+                </div>
               </div>
             </div>
           </div>

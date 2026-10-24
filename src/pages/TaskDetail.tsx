@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, BookOpen, CheckCircle2, ExternalLink, Code2 } from 'lucide-react';
+import { ArrowLeft, Clock, BookOpen, CheckCircle2, ExternalLink, Code2, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useAiAssistant } from '../context/AiContext';
 import { TRACKS } from '../data/curriculum';
 import { getResourcesForTopic } from '../data/resources';
 
 export default function TaskDetail() {
   const { taskId } = useParams<{ taskId: string }>();
   const { state, markTaskComplete, markSkillComplete } = useApp();
+  const { openPanel } = useAiAssistant();
   const navigate = useNavigate();
   const [challengeExpanded, setChallengeExpanded] = useState(false);
   const [confirmComplete, setConfirmComplete] = useState(false);
@@ -87,18 +89,30 @@ export default function TaskDetail() {
         </p>
 
         {/* Metadata */}
-        <div style={{ display: 'flex', gap: 14, marginTop: 12, flexWrap: 'wrap', fontSize: 12, color: 'var(--text-muted)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <Clock size={13} /> {task.estimatedMinutes} minutes estimated
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            +{task.xpReward} XP milestone
-          </div>
-          {task.challenge && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--accent-text)' }}>
-              Includes optional challenge
+        <div style={{ display: 'flex', gap: 14, marginTop: 12, flexWrap: 'wrap', fontSize: 12, color: 'var(--text-muted)', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <Clock size={13} /> {task.estimatedMinutes} minutes estimated
             </div>
-          )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              +{task.xpReward} XP milestone
+            </div>
+            {task.challenge && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--accent-text)' }}>
+                Includes optional challenge
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={() => openPanel({ initialPrompt: `I am working on "${task.title}" for topic ${skill.title}. Can you give me a guided hint on how to start without giving away the full answer?` })}
+            className="btn btn-secondary btn-sm"
+            style={{ fontSize: 12, gap: 5 }}
+            title="Ask AI Mentor for a guided hint"
+          >
+            <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} />
+            <span>Ask AI for Hint</span>
+          </button>
         </div>
       </div>
 
@@ -258,9 +272,19 @@ export default function TaskDetail() {
               </button>
             </div>
             {challengeExpanded && (
-              <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: 10 }}>
-                {task.challenge}
-              </p>
+              <div style={{ marginTop: 10 }}>
+                <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 12 }}>
+                  {task.challenge}
+                </p>
+                <button
+                  onClick={() => openPanel({ initialPrompt: `I am attempting the optional challenge for "${task.title}": "${task.challenge}". How should I break down this challenge?` })}
+                  className="btn btn-secondary btn-sm"
+                  style={{ fontSize: 11, gap: 5 }}
+                >
+                  <Sparkles size={11} style={{ color: 'var(--accent-primary)' }} />
+                  Break down this challenge with AI
+                </button>
+              </div>
             )}
           </div>
         )}

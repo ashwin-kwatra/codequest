@@ -246,3 +246,45 @@ export interface RecommendationResult {
   firstTask: Task | null;
   totalMilestones: number;
 }
+
+// ---- CodeQuest AI Assistant Types ----
+
+export interface LearnerContext {
+  trackId: TrackId;
+  trackName: string;
+  topicId?: string;
+  topicTitle?: string;
+  taskTitle?: string;
+  taskObjective?: string;
+  dailyQuestTopic?: string;
+  dailyQuestObjective?: string;
+  curatedResourceTitle?: string;
+  curatedResourceUrl?: string;
+  curatedResourceProvider?: string;
+  completedSkillsCount: number;
+  totalSkillsCount: number;
+  activeProjectName?: string;
+  activeMilestoneTitle?: string;
+  learnerLevel: number;
+  streakDays: number;
+  currentPath: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: number;
+  contextSummary?: string;
+  suggestedFollowUps?: string[];
+  isDemoResponse?: boolean;
+}
+
+export type AiMode = 'demo' | 'endpoint';
+
+export interface AiConfig {
+  mode: AiMode;
+  apiEndpoint?: string;
+  modelName?: string;
+}
+

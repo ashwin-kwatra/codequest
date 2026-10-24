@@ -12,14 +12,17 @@ import {
   ChevronRight,
   ShieldCheck,
   Play,
+  Sparkles,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useAiAssistant } from '../context/AiContext';
 import { TRACKS } from '../data/curriculum';
 import { getResourcesForTopic } from '../data/resources';
 import type { Skill } from '../types';
 
 export default function Roadmap() {
   const { state, markSkillComplete, markSkillKnown, switchTrack } = useApp();
+  const { openPanel } = useAiAssistant();
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const { roadmap, profile } = state;
   const track = profile.selectedTrack ?? 'fullstack';
@@ -286,7 +289,16 @@ export default function Roadmap() {
                       </div>
 
                       {/* Right Action Buttons */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <button
+                          onClick={() => openPanel({ topicId: skill.id, initialPrompt: `Can you explain the concept of ${skill.title} and give me a high-level walkthrough?` })}
+                          className="btn btn-ghost btn-sm"
+                          style={{ fontSize: 11, padding: '5px 8px', color: 'var(--accent-text)', gap: 4 }}
+                          title="Ask CodeQuest AI about this topic"
+                        >
+                          <Sparkles size={11} /> Ask AI
+                        </button>
+
                         <button
                           onClick={() => setSelectedSkill(skill)}
                           className="btn btn-secondary btn-sm"
@@ -350,6 +362,7 @@ function SkillPanel({
   onMarkComplete: () => void;
   onMarkKnown: () => void;
 }) {
+  const { openPanel } = useAiAssistant();
   const allTasksDone = skill.tasks.every(t => completedTaskIds.has(t.id));
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [verifiedAnswer, setVerifiedAnswer] = useState(false);
@@ -569,6 +582,17 @@ function SkillPanel({
 
         {/* Modal Action Buttons */}
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            onClick={() => {
+              onClose();
+              openPanel({ topicId: skill.id, initialPrompt: `Can you explain the core concepts of ${skill.title} and how to master it?` });
+            }}
+            className="btn btn-secondary btn-sm"
+            style={{ gap: 5 }}
+          >
+            <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask AI Mentor
+          </button>
+
           {status !== 'completed' && (
             <button
               onClick={() => setShowVerifyModal(true)}

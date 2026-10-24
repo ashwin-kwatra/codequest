@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Clock, CheckCircle2, ChevronRight, Lock, FolderGit2, X } from 'lucide-react';
+import { Clock, CheckCircle2, ChevronRight, Lock, FolderGit2, X, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useAiAssistant } from '../context/AiContext';
 import { TRACKS } from '../data/curriculum';
 import type { Project } from '../types';
 
 export default function Projects() {
   const { state, startProject, completeMilestoneAction } = useApp();
+  const { openPanel } = useAiAssistant();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { roadmap, profile } = state;
   const track = profile.selectedTrack ?? 'fullstack';
@@ -58,7 +60,16 @@ export default function Projects() {
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => openPanel({ initialPrompt: `I am building the project "${activeProject.name}" in the ${trackData.name} track. Can you review the architecture, recommended file structure, and implementation roadmap?` })}
+                className="btn btn-secondary btn-sm"
+                style={{ fontSize: 12, gap: 5 }}
+                title="Ask AI Mentor for Architectural Guidance"
+              >
+                <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} />
+                Architectural Guidance
+              </button>
               <span className="badge badge-muted">
                 <Clock size={11} /> {activeProject.estimatedHours}h
               </span>
@@ -138,18 +149,29 @@ export default function Projects() {
                       )}
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                       <span className="badge badge-muted" style={{ fontSize: 11 }}>
                         +{milestone.xpReward} XP
                       </span>
                       {isNext && !done && (
-                        <button
-                          onClick={() => completeMilestoneAction(activeProject.id, milestone.id, milestone.xpReward)}
-                          className="btn btn-primary btn-sm"
-                          style={{ fontSize: 12 }}
-                        >
-                          Mark Finished
-                        </button>
+                        <>
+                          <button
+                            onClick={() => openPanel({ initialPrompt: `I am working on milestone "${milestone.title}" for project "${activeProject.name}". Requirements: ${milestone.description}. How should I plan the code and step-by-step implementation for this milestone?` })}
+                            className="btn btn-secondary btn-sm"
+                            style={{ fontSize: 11, padding: '3px 8px', gap: 4 }}
+                            title="Ask AI Mentor for milestone plan"
+                          >
+                            <Sparkles size={11} style={{ color: 'var(--accent-primary)' }} />
+                            Plan Step
+                          </button>
+                          <button
+                            onClick={() => completeMilestoneAction(activeProject.id, milestone.id, milestone.xpReward)}
+                            className="btn btn-primary btn-sm"
+                            style={{ fontSize: 12 }}
+                          >
+                            Mark Finished
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -318,7 +340,7 @@ export default function Projects() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button
                 onClick={() => {
                   startProject(selectedProject.id);
@@ -329,7 +351,18 @@ export default function Projects() {
               >
                 Set as Active Project
               </button>
-              <button onClick={() => setSelectedProject(null)} className="btn btn-secondary btn-sm">
+              <button
+                onClick={() => {
+                  openPanel({ initialPrompt: `I am considering starting the project "${selectedProject.name}". Can you explain what skills I need and give an architectural overview?` });
+                  setSelectedProject(null);
+                }}
+                className="btn btn-secondary btn-sm"
+                style={{ gap: 5 }}
+              >
+                <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} />
+                Ask Mentor
+              </button>
+              <button onClick={() => setSelectedProject(null)} className="btn btn-ghost btn-sm">
                 Close
               </button>
             </div>

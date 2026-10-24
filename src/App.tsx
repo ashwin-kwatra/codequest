@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
+import { AiProviderWrapper } from './context/AiContext';
+import { AiFloatingButton } from './components/AiAssistant/AiFloatingButton';
+import { AiSidePanel } from './components/AiAssistant/AiSidePanel';
 import Landing from './pages/Landing';
 import Onboarding from './pages/Onboarding';
 import Recommendation from './pages/Recommendation';
@@ -16,39 +19,43 @@ function AppRoutes() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="/recommendation" element={
-          hasOnboarded ? <Recommendation /> : <Navigate to="/onboarding" />
-        } />
-        <Route path="/dashboard" element={
-          hasOnboarded
-            ? <AppShell><Dashboard /></AppShell>
-            : <Navigate to="/onboarding" />
-        } />
-        <Route path="/roadmap" element={
-          hasOnboarded
-            ? <AppShell><Roadmap /></AppShell>
-            : <Navigate to="/onboarding" />
-        } />
-        <Route path="/projects" element={
-          hasOnboarded
-            ? <AppShell><Projects /></AppShell>
-            : <Navigate to="/onboarding" />
-        } />
-        <Route path="/profile" element={
-          hasOnboarded
-            ? <AppShell><Profile /></AppShell>
-            : <Navigate to="/onboarding" />
-        } />
-        <Route path="/task/:taskId" element={
-          hasOnboarded
-            ? <AppShell><TaskDetail /></AppShell>
-            : <Navigate to="/onboarding" />
-        } />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      <AiProviderWrapper>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/recommendation" element={
+            hasOnboarded ? <Recommendation /> : <Navigate to="/onboarding" />
+          } />
+          <Route path="/dashboard" element={
+            hasOnboarded
+              ? <AppShell><Dashboard /></AppShell>
+              : <Navigate to="/onboarding" />
+          } />
+          <Route path="/roadmap" element={
+            hasOnboarded
+              ? <AppShell><Roadmap /></AppShell>
+              : <Navigate to="/onboarding" />
+          } />
+          <Route path="/projects" element={
+            hasOnboarded
+              ? <AppShell><Projects /></AppShell>
+              : <Navigate to="/onboarding" />
+          } />
+          <Route path="/profile" element={
+            hasOnboarded
+              ? <AppShell><Profile /></AppShell>
+              : <Navigate to="/onboarding" />
+          } />
+          <Route path="/task/:taskId" element={
+            hasOnboarded
+              ? <AppShell><TaskDetail /></AppShell>
+              : <Navigate to="/onboarding" />
+          } />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <AiFloatingButton />
+        <AiSidePanel />
+      </AiProviderWrapper>
     </BrowserRouter>
   );
 }
