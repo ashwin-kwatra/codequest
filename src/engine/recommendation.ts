@@ -1,7 +1,3 @@
-// ============================================
-// CodeQuest — Recommendation Engine
-// ============================================
-
 import type {
   OnboardingAnswers,
   TrackId,

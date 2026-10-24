@@ -139,7 +139,7 @@ export default function Landing() {
           }}
         >
           <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 12 }}>
-            Instant Evaluation Profiles (1-Click Demo Launcher)
+            Sample Learner Profiles
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>

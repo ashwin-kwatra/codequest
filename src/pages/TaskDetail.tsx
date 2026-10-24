@@ -108,10 +108,10 @@ export default function TaskDetail() {
             onClick={() => openPanel({ initialPrompt: `I am working on "${task.title}" for topic ${skill.title}. Can you give me a guided hint on how to start without giving away the full answer?` })}
             className="btn btn-secondary btn-sm"
             style={{ fontSize: 12, gap: 5 }}
-            title="Ask AI Mentor for a guided hint"
+            title="Request a guided hint"
           >
             <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} />
-            <span>Ask AI for Hint</span>
+            <span>Get Hint</span>
           </button>
         </div>
       </div>
@@ -282,7 +282,7 @@ export default function TaskDetail() {
                   style={{ fontSize: 11, gap: 5 }}
                 >
                   <Sparkles size={11} style={{ color: 'var(--accent-primary)' }} />
-                  Break down this challenge with AI
+                  Break down challenge
                 </button>
               </div>
             )}

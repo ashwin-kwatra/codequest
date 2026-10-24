@@ -1,8 +1,3 @@
-// ============================================================================
-// CodeQuest AI — Context Extraction Engine
-// Assembles structured learner context from existing application state & routes
-// ============================================================================
-
 import type { AppState, LearnerContext, TrackId } from '../types';
 import { TRACKS } from '../data/curriculum';
 import { getPrimaryResourceForTopic } from '../data/resources';
@@ -13,9 +8,6 @@ const TRACK_TITLES: Record<TrackId, string> = {
   ai: 'AI & Machine Learning',
 };
 
-/**
- * Builds a structured, privacy-safe LearnerContext snapshot
- */
 export function buildLearnerContext(
   state: AppState,
   currentPath: string,
@@ -31,13 +23,11 @@ export function buildLearnerContext(
       .map(([k]) => k)
   );
 
-  // 1. Determine active topic
   let activeTopicId: string | undefined = topicOverrideId;
   let activeTopicTitle: string | undefined;
   let activeTaskTitle: string | undefined;
   let activeTaskObjective: string | undefined;
 
-  // Check if we are on a task route: /task/:taskId
   if (currentPath.startsWith('/task/')) {
     const taskId = currentPath.replace('/task/', '').split('?')[0];
     for (const skill of trackData.skills) {
@@ -54,7 +44,6 @@ export function buildLearnerContext(
     }
   }
 
-  // If topic override was provided or not on a specific task
   if (topicOverrideId) {
     const matchedSkill = trackData.skills.find(s => s.id === topicOverrideId);
     if (matchedSkill) {
@@ -63,23 +52,18 @@ export function buildLearnerContext(
     }
   }
 
-  // Fallback to today's quest topic if on dashboard or undefined
   if (!activeTopicId && gamification.dailyQuest) {
     activeTopicId = gamification.dailyQuest.topicId;
     activeTopicTitle = gamification.dailyQuest.topicTitle;
   }
 
-  // If still undefined, use the first incomplete skill in the track
   if (!activeTopicId) {
     const firstIncomplete = trackData.skills.find(s => !completedSkillIds.has(s.id)) || trackData.skills[0];
     activeTopicId = firstIncomplete.id;
     activeTopicTitle = firstIncomplete.title;
   }
 
-  // 2. Curated learning resource for the active topic
   const primaryResource = activeTopicId ? getPrimaryResourceForTopic(activeTopicId) : null;
-
-  // 3. Active project & milestone
   const activeProject = roadmap.activeProjectId
     ? trackData.projects.find(p => p.id === roadmap.activeProjectId)
     : null;

@@ -182,7 +182,7 @@ export default function Dashboard() {
                 className="btn btn-secondary btn-sm"
                 style={{ fontSize: 12, gap: 5 }}
               >
-                <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask AI Mentor
+                <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask Mentor
               </button>
 
               {/* Streak & Consistency Pill */}

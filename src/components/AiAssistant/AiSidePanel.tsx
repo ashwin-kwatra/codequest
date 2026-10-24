@@ -5,9 +5,6 @@ import {
   RotateCcw,
   Sparkles,
   Square,
-  Compass,
-  Code2,
-  BookOpen,
   Settings,
   ChevronDown,
   ChevronUp,
@@ -37,14 +34,12 @@ export function AiSidePanel() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll to bottom on new messages
   useEffect(() => {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isGenerating, isOpen]);
 
-  // Focus textarea when panel opens
   useEffect(() => {
     if (isOpen) {
       textareaRef.current?.focus();
@@ -66,7 +61,6 @@ export function AiSidePanel() {
     }
   };
 
-  // Dynamic suggested prompts based on current location and context
   const getContextualPrompts = () => {
     const prompts: string[] = [];
     const topic = activeContext.topicTitle || 'my current topic';
@@ -111,7 +105,6 @@ export function AiSidePanel() {
         flexDirection: 'column',
       }}
     >
-      {/* 1. Header Bar */}
       <div style={{
         padding: '14px 18px',
         borderBottom: '1px solid var(--border)',
@@ -135,26 +128,24 @@ export function AiSidePanel() {
           </div>
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.2 }}>
-              CodeQuest AI
+              CodeQuest Assistant
             </div>
             <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
-              {mode === 'demo' ? 'Context-Aware Coding Mentor (Demo Mode)' : 'Connected Endpoint Mode'}
+              {mode === 'builtin' ? 'Interactive Mentor' : 'Custom Endpoint'}
             </div>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          {/* Settings / Config toggle */}
           <button
             onClick={() => setShowConfig(!showConfig)}
             className="btn btn-ghost btn-sm"
             style={{ padding: 6, color: showConfig ? 'var(--accent-primary)' : 'var(--text-muted)' }}
-            title="Configure AI Provider Endpoint"
+            title="Configure Endpoint"
           >
             <Settings size={14} />
           </button>
 
-          {/* Clear / New Chat */}
           <button
             onClick={clearConversation}
             className="btn btn-ghost btn-sm"
@@ -164,7 +155,6 @@ export function AiSidePanel() {
             <RotateCcw size={14} />
           </button>
 
-          {/* Close Panel */}
           <button
             onClick={closePanel}
             className="btn btn-ghost btn-sm"
@@ -176,7 +166,6 @@ export function AiSidePanel() {
         </div>
       </div>
 
-      {/* 2. Optional Provider Configuration Drawer */}
       {showConfig && (
         <div style={{
           padding: '12px 16px',
@@ -185,25 +174,25 @@ export function AiSidePanel() {
           fontSize: 12,
         }}>
           <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>
-            AI Provider Architecture
+            Provider Configuration
           </div>
           <p style={{ color: 'var(--text-secondary)', marginBottom: 8, lineHeight: 1.4 }}>
-            CodeQuest uses an offline, context-aware pedagogical mentor by default. To connect a custom serverless proxy:
+            Select an assistant engine or connect a custom API endpoint:
           </p>
           <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
             <button
-              onClick={() => setMode('demo')}
-              className={`btn btn-sm ${mode === 'demo' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setMode('builtin')}
+              className={`btn btn-sm ${mode === 'builtin' ? 'btn-primary' : 'btn-secondary'}`}
               style={{ fontSize: 11, padding: '3px 8px' }}
             >
-              Demo Mode (Built-in)
+              Built-in Engine
             </button>
             <button
               onClick={() => setMode('endpoint', customEndpoint)}
               className={`btn btn-sm ${mode === 'endpoint' ? 'btn-primary' : 'btn-secondary'}`}
               style={{ fontSize: 11, padding: '3px 8px' }}
             >
-              Custom Server Endpoint
+              Custom Endpoint
             </button>
           </div>
           {mode === 'endpoint' && (
@@ -218,7 +207,6 @@ export function AiSidePanel() {
         </div>
       )}
 
-      {/* 3. Live Active Context Strip */}
       <div style={{
         padding: '8px 16px',
         backgroundColor: 'var(--bg-subtle)',
@@ -255,7 +243,6 @@ export function AiSidePanel() {
           </div>
         </div>
 
-        {/* Expanded Context Details */}
         {contextExpanded && (
           <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 4, color: 'var(--text-secondary)' }}>
             <div><strong>Track:</strong> {activeContext.trackName}</div>
@@ -270,7 +257,6 @@ export function AiSidePanel() {
         )}
       </div>
 
-      {/* 4. Chat Message Stream */}
       <div style={{
         flex: 1,
         overflowY: 'auto',
@@ -291,7 +277,6 @@ export function AiSidePanel() {
                 maxWidth: '100%',
               }}
             >
-              {/* Message Bubble */}
               <div
                 style={{
                   maxWidth: isUser ? '85%' : '100%',
@@ -310,7 +295,6 @@ export function AiSidePanel() {
                   <div>
                     <MarkdownMessage content={msg.content} />
 
-                    {/* Follow-up suggestions */}
                     {msg.suggestedFollowUps && msg.suggestedFollowUps.length > 0 && !isGenerating && (
                       <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: 6 }}>
                         <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)' }}>
@@ -349,26 +333,23 @@ export function AiSidePanel() {
                 )}
               </div>
 
-              {/* Timestamp / Context Tag */}
               <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 4, padding: '0 4px' }}>
-                {isUser ? 'You' : 'CodeQuest AI'} • {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {isUser ? 'You' : 'Mentor'} • {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
             </div>
           );
         })}
 
-        {/* Loading Indicator */}
         {isGenerating && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 6, backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border)', width: 'fit-content' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--accent-primary)', animation: 'pulse 1s infinite' }} />
-            <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>CodeQuest AI is thinking...</span>
+            <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Thinking...</span>
           </div>
         )}
 
         <div ref={messagesEndRef} />
       </div>
 
-      {/* 5. Smart Suggested Prompts (when idle) */}
       {!isGenerating && (
         <div style={{ padding: '8px 16px', borderTop: '1px solid var(--border-subtle)', backgroundColor: 'var(--bg-surface)' }}>
           <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 6 }}>
@@ -405,7 +386,6 @@ export function AiSidePanel() {
         </div>
       )}
 
-      {/* 6. Composer */}
       <div style={{
         padding: '14px 16px',
         borderTop: '1px solid var(--border)',

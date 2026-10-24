@@ -1,12 +1,12 @@
 import React from 'react';
-import { MessageSquareCode, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useAiAssistant } from '../../context/AiContext';
 
 export function AiFloatingButton() {
   const { isOpen, togglePanel, activeContext } = useAiAssistant();
 
   if (isOpen) {
-    return null; // Side panel is open
+    return null;
   }
 
   return (
@@ -39,7 +39,7 @@ export function AiFloatingButton() {
         (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--text-primary)';
         (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
       }}
-      title={`Open CodeQuest AI (Current Context: ${activeContext.topicTitle || activeContext.trackName})`}
+      title={`Open Assistant (${activeContext.topicTitle || activeContext.trackName})`}
     >
       <div style={{
         width: 18,
@@ -52,9 +52,8 @@ export function AiFloatingButton() {
       }}>
         <Sparkles size={11} color="#FFFFFF" />
       </div>
-      <span>CodeQuest AI</span>
+      <span>Mentor</span>
 
-      {/* Context indicator dot */}
       <span
         style={{
           width: 7,
@@ -63,7 +62,6 @@ export function AiFloatingButton() {
           backgroundColor: '#4ADE80',
           marginLeft: 2,
         }}
-        title="Context active"
       />
     </button>
   );

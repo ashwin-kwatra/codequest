@@ -1,7 +1,3 @@
-// ============================================
-// CodeQuest — localStorage persistence layer
-// ============================================
-
 import type {
   AppState,
   UserProfile,
@@ -25,8 +21,6 @@ const KEYS = {
 } as const;
 
 const CURRENT_VERSION = '1.0.0';
-
-// ---- Default state ----
 
 export function defaultProfile(): UserProfile {
   return {
@@ -74,7 +68,6 @@ export function defaultAppState(): AppState {
   };
 }
 
-// ---- Calendar streak calculation ----
 export function calculateUpdatedStreak(
   lastDate: string | null,
   today: string,
@@ -108,8 +101,6 @@ export function calculateUpdatedStreak(
     return { streak: 1, lastDate: today };
   }
 }
-
-// ---- Load / Save ----
 
 export function loadState(): AppState {
   try {
@@ -186,8 +177,6 @@ export function resetState(): AppState {
   localStorage.removeItem(KEYS.APP_STATE);
   return defaultAppState();
 }
-
-// ---- Granular updaters ----
 
 export function saveProfile(profile: UserProfile): void {
   const state = loadState();
@@ -539,8 +528,6 @@ export function loadSampleProfile(persona: 'beginner' | 'directionless' | 'goal_
   return state;
 }
 
-// ---- Skill progress ----
-
 export function updateSkillStatus(skillId: string, status: SkillStatus): AppState {
   const state = loadState();
   const existing = state.roadmap.skillProgress[skillId];
@@ -563,8 +550,6 @@ export function updateSkillStatus(skillId: string, status: SkillStatus): AppStat
   saveState(newState);
   return newState;
 }
-
-// ---- Task completion ----
 
 export function completeTask(
   taskId: string,
@@ -645,8 +630,6 @@ export function completeTask(
   saveState(newState);
   return { state: newState, newAchievements, leveledUp, xpGained: xpReward };
 }
-
-// ---- Daily Quest Step Toggle & Completion ----
 
 export function toggleQuestStep(stepId: string): {
   state: AppState;
@@ -805,8 +788,6 @@ export function advanceToNextQuest(): AppState {
   return newState;
 }
 
-// ---- Project progress ----
-
 export function selectProject(projectId: string): AppState {
   const state = loadState();
   if (!state.roadmap.projectProgress[projectId]) {
@@ -899,9 +880,6 @@ export function unlockSkillAchievement(skillsCompleted: number): { state: AppSta
   return { state: newState, newAchievements };
 }
 
-// ---- Level calculation ----
-// Level thresholds: 1→0, 2→100, 3→250, 4→450, 5→700, 6→1000, 7→1350, ...
-// Formula: threshold(n) = n*(n-1)*75 for n>=2
 export function xpToLevel(xp: number): number {
   let level = 1;
   while (true) {

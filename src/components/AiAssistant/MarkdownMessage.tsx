@@ -6,7 +6,6 @@ interface MarkdownMessageProps {
 }
 
 export function MarkdownMessage({ content }: MarkdownMessageProps) {
-  // Split content by code blocks ```lang ... ```
   const segments = parseSegments(content);
 
   return (
@@ -38,7 +37,6 @@ function CodeBlock({ code, language }: { code: string; language?: string }) {
       backgroundColor: '#0F172A',
       margin: '6px 0',
     }}>
-      {/* Code Header Bar */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -71,7 +69,6 @@ function CodeBlock({ code, language }: { code: string; language?: string }) {
         </button>
       </div>
 
-      {/* Code Body */}
       <pre style={{
         margin: 0,
         padding: '12px 14px',
@@ -96,7 +93,6 @@ function FormattedParagraph({ text }: { text: string }) {
         const trimmed = line.trim();
         if (!trimmed) return <div key={lIdx} style={{ height: 4 }} />;
 
-        // Header check ###
         if (trimmed.startsWith('#### ')) {
           return (
             <h4 key={lIdx} style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', marginTop: 4 }}>
@@ -112,7 +108,6 @@ function FormattedParagraph({ text }: { text: string }) {
           );
         }
 
-        // Bullet check
         if (trimmed.startsWith('• ') || trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
           return (
             <div key={lIdx} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', paddingLeft: 6 }}>
@@ -122,7 +117,6 @@ function FormattedParagraph({ text }: { text: string }) {
           );
         }
 
-        // Numbered list check (1. ...)
         const numMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
         if (numMatch) {
           return (
@@ -141,18 +135,13 @@ function FormattedParagraph({ text }: { text: string }) {
   );
 }
 
-/**
- * Parses inline formatting: **bold**, *italic*, `code`, and [label](url)
- */
 function renderInline(str: string): React.ReactNode {
-  // Regex matches: Markdown links [text](url), inline code `...`, bold **...**, italic *...*
   const pattern = /(\[.*?\]\(.*?\)|\*\*.*?\*\*|`.*?`|\*.*?\*)/g;
   const parts = str.split(pattern);
 
   return parts.map((part, i) => {
     if (!part) return null;
 
-    // Link: [text](url)
     const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
     if (linkMatch) {
       return (
@@ -168,12 +157,10 @@ function renderInline(str: string): React.ReactNode {
       );
     }
 
-    // Bold: **text**
     if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
       return <strong key={i} style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{part.slice(2, -2)}</strong>;
     }
 
-    // Inline code: `code`
     if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
       return (
         <code
@@ -193,7 +180,6 @@ function renderInline(str: string): React.ReactNode {
       );
     }
 
-    // Italic: *text*
     if (part.startsWith('*') && part.endsWith('*') && part.length >= 2) {
       return <em key={i} style={{ fontStyle: 'italic', color: 'var(--text-secondary)' }}>{part.slice(1, -1)}</em>;
     }
@@ -219,7 +205,6 @@ function parseSegments(raw: string): Segment[] {
   for (const line of lines) {
     if (line.trim().startsWith('```')) {
       if (inCode) {
-        // Closing code block
         segments.push({
           type: 'code',
           content: buffer.join('\n'),
@@ -229,7 +214,6 @@ function parseSegments(raw: string): Segment[] {
         inCode = false;
         codeLang = '';
       } else {
-        // Opening code block
         if (buffer.length > 0) {
           segments.push({
             type: 'text',

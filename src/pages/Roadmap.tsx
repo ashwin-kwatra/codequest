@@ -294,9 +294,9 @@ export default function Roadmap() {
                           onClick={() => openPanel({ topicId: skill.id, initialPrompt: `Can you explain the concept of ${skill.title} and give me a high-level walkthrough?` })}
                           className="btn btn-ghost btn-sm"
                           style={{ fontSize: 11, padding: '5px 8px', color: 'var(--accent-text)', gap: 4 }}
-                          title="Ask CodeQuest AI about this topic"
+                          title="Ask Mentor about this topic"
                         >
-                          <Sparkles size={11} /> Ask AI
+                          <Sparkles size={11} /> Mentor
                         </button>
 
                         <button
@@ -590,7 +590,7 @@ function SkillPanel({
             className="btn btn-secondary btn-sm"
             style={{ gap: 5 }}
           >
-            <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask AI Mentor
+            <Sparkles size={12} style={{ color: 'var(--accent-primary)' }} /> Ask Mentor
           </button>
 
           {status !== 'completed' && (

@@ -1,14 +1,8 @@
-// ============================================
-// CodeQuest — Core Type Definitions
-// ============================================
-
 export type TrackId = 'dsa' | 'fullstack' | 'ai';
 export type SkillStatus = 'locked' | 'available' | 'in-progress' | 'completed' | 'checkpoint';
 export type TaskStatus = 'locked' | 'available' | 'completed';
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 export type ResourceType = 'documentation' | 'video' | 'interactive' | 'article' | 'practice';
-
-// ---- Curriculum ----
 
 export interface Resource {
   id: string;
@@ -48,13 +42,13 @@ export interface DailyQuestStep {
 
 export interface DailyQuest {
   id: string;
-  date: string;               // YYYY-MM-DD local calendar date
+  date: string;
   trackId: TrackId;
   topicId: string;
   topicTitle: string;
   objective: string;
   estimatedMinutes: number;
-  xpReward: number;           // e.g. 50 XP
+  xpReward: number;
   steps: DailyQuestStep[];
   isCompleted: boolean;
   completedAt?: string;
@@ -62,7 +56,7 @@ export interface DailyQuest {
 }
 
 export interface QuestHistoryEntry {
-  date: string;               // YYYY-MM-DD
+  date: string;
   questId: string;
   topicTitle: string;
   trackId: TrackId;
@@ -89,11 +83,11 @@ export interface Skill {
   title: string;
   description: string;
   estimatedHours: number;
-  prerequisites: string[]; // skill IDs
+  prerequisites: string[];
   tasks: Task[];
   primaryResource: Resource;
   practiceResource?: Resource;
-  order: number; // position in track
+  order: number;
 }
 
 export interface Project {
@@ -102,7 +96,7 @@ export interface Project {
   name: string;
   description: string;
   difficulty: Difficulty;
-  requiredSkills: string[]; // skill IDs
+  requiredSkills: string[];
   optionalSkills: string[];
   estimatedHours: number;
   milestones: ProjectMilestone[];
@@ -132,8 +126,6 @@ export interface Track {
   projects: Project[];
 }
 
-// ---- Onboarding ----
-
 export type CareerClarity = 'know' | 'some-skills' | 'complete-beginner';
 export type CareerInterest = 'web' | 'interviews' | 'ai' | 'exploring';
 export type ExperienceLevel = 'none' | 'basics' | 'small-projects' | 'intermediate';
@@ -145,13 +137,11 @@ export interface OnboardingAnswers {
   clarity: CareerClarity;
   interest: CareerInterest;
   experience: ExperienceLevel;
-  existingSkills: string[]; // skill IDs
+  existingSkills: string[];
   dailyTime: DailyTime;
   timeline: Timeline;
   trackPreference: TrackPreference;
 }
-
-// ---- User Profile ----
 
 export interface UserProfile {
   name: string;
@@ -162,8 +152,6 @@ export interface UserProfile {
   recommendationReason: string;
   createdAt: string;
 }
-
-// ---- Progress State ----
 
 export interface SkillProgress {
   skillId: string;
@@ -181,7 +169,7 @@ export interface TaskCompletion {
 export interface ProjectProgress {
   projectId: string;
   selectedAt: string;
-  completedMilestones: string[]; // milestone IDs
+  completedMilestones: string[];
 }
 
 export interface RoadmapState {
@@ -191,8 +179,6 @@ export interface RoadmapState {
   activeProjectId: string | null;
   projectProgress: Record<string, ProjectProgress>;
 }
-
-// ---- Gamification ----
 
 export type AchievementId =
   | 'first_steps'
@@ -227,15 +213,11 @@ export interface GamificationState {
   questHistory: Record<string, QuestHistoryEntry>;
 }
 
-// ---- App State (root) ----
-
 export interface AppState {
   profile: UserProfile;
   roadmap: RoadmapState;
   gamification: GamificationState;
 }
-
-// ---- Recommendation Result ----
 
 export interface RecommendationResult {
   track: TrackId;
@@ -246,8 +228,6 @@ export interface RecommendationResult {
   firstTask: Task | null;
   totalMilestones: number;
 }
-
-// ---- CodeQuest AI Assistant Types ----
 
 export interface LearnerContext {
   trackId: TrackId;
@@ -277,14 +257,12 @@ export interface ChatMessage {
   timestamp: number;
   contextSummary?: string;
   suggestedFollowUps?: string[];
-  isDemoResponse?: boolean;
 }
 
-export type AiMode = 'demo' | 'endpoint';
+export type AiMode = 'builtin' | 'endpoint';
 
 export interface AiConfig {
   mode: AiMode;
   apiEndpoint?: string;
   modelName?: string;
 }
-

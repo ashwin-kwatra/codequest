@@ -1,195 +1,134 @@
-# ⚡ CodeQuest
-### *Turn "What should I learn?" into your first actionable step in 60 seconds.*
+# CodeQuest
 
-[![React](https://img.shields.io/badge/React-19.0-61dafb?logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-8.x-646cff?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+A structured developer learning platform that turns career goals into actionable daily quests, verified learning resources, and portfolio deliverables.
 
 ---
 
-## 📖 Overview
+## Overview
 
-**CodeQuest** is a gamified, personalized coding career roadmap platform designed for college students and beginners who want to enter tech but don't know what to learn, where to start, or which career path fits them best.
+CodeQuest bridges the gap between scattered course catalogs and structured career roadmaps. It pairs an explainable roadmap generation engine with a daily habit loop, verified learning resources across 36 core computer science topics, and an interactive coding mentor.
 
-Instead of generic course catalogs or chat assistants, CodeQuest pairs an **explainable roadmap generation engine** with a **Daily Quest-First habit loop** and **verified, topic-specific curated learning resources** for all 36 curriculum topics across DSA, Full Stack, and AI/ML.
-
----
-
-## ✨ Key Features
-
-### ⚡ Today's Quest — The Primary Habit Anchor
-Redesigned with a **Quest-First dashboard hierarchy**, placing the learner's daily mission front and center:
-- **Personalized Daily Quest Generation:** Tailored automatically to the learner's current track, satisfied prerequisites, and daily availability (30m, 1h, 2h, 3h+).
-- **Interactive 3-Step Sequential Checklist:**
-  1. **Study Concept (Learn):** Read the curated primary resource or documentation section.
-  2. **Hands-On Practice (Practise):** Solve the direct companion exercise on Striver's sheet, LeetCode, MDN, or Kaggle.
-  3. **Checkpoint Challenge (Challenge):** Complete a verifiable challenge to reinforce knowledge.
-- **Direct Curated Resource Integration:** Every quest features an explicit link to verified official lessons and companion practice problems.
-- **Anti-Duplication Progression:** Step progress and completion rewards (+50 XP bonus) are awarded idempotently once per calendar date, preventing XP farming.
-- **7-Day Consistency History:** Visual weekly tracker showing daily quest checkmarks, active streaks, and total quests completed.
-- **Continuous Learning:** Completed quests celebrate today's takeaway and allow launching the next quest early without altering past records.
-
-### 📚 Centralized Curated Resource Catalogue (All 36 Topics)
-Every single topic across all three tracks is backed by real, verified, typed external resources:
-- **DSA / Coding Interviews:** Centered on [takeUforward Striver's A2Z DSA Sheet](https://takeuforward.org/prep-hub/strivers-a2z-dsa-sheet), covering arrays, recursion, linked lists, trees, graphs, greedy algorithms, dynamic programming, and interview patterns.
-- **Full Stack Development:** Grounded in the official [MDN Web Docs Curriculum](https://developer.mozilla.org/en-US/curriculum/) for HTML, CSS, JavaScript, and DOM, plus [University of Helsinki's Full Stack Open](https://fullstackopen.com/en/) for React, Node.js, Express, MongoDB, Auth, and CI/CD.
-- **AI / Machine Learning:** Anchored in [Google's Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course) with companion Colab exercises, Pandas, NumPy, statistical pre-work, supervised learning, and neural network foundations.
-- **Metadata for Every Entry:** Provider name, verified URL, resource type (`course`, `documentation`, `practice`, `video`), difficulty (`beginner`, `intermediate`, `advanced`), estimated duration, what the learner will gain, and companion practice links.
-
-### ⏱️ 60-Second Onboarding Wizard
-- Rapid 7-step guided assessment covering career clarity, interests, existing technical background, daily study availability, and target deadlines.
-- Automatically infers one of three core learner archetypes without forcing rigid labels:
-  - **Persona A (The Completely Lost Beginner):** Explores interests with zero prior coding experience; receives structured fundamentals.
-  - **Persona B (The Directionless Learner):** Has scattered or basic skills; identifies transferable strengths and bridges gaps with a guiding portfolio project.
-  - **Persona C (The Goal-Driven Learner):** Knows their target (e.g. FAANG coding interviews or Web Dev); gets an optimized prerequisite sequence.
-
-### 🧠 Adaptive Roadmap Generation Engine
-- **Prerequisite Dependency Graph:** Tracks explicit prerequisite requirements across 36 comprehensive skills.
-- **Skill Fast-Tracking:** Identifies skills you already possess, skips redundant introductory topics, or allows fast-tracking via verification challenges.
-- **Realistic Timeline Calculator:** Divides total curriculum hours by realistic weekly study availability, transparently flagging unrealistic deadlines and providing achievable milestone recommendations.
-- **Seamless Track Switching:** Switch between tracks anytime without resetting earned XP or historical activity.
-
-### 🎯 Three Focused Career Paths
-1. **⚡ DSA / Coding Interviews (C++):**
-   - *12 Skills:* C++ Fundamentals ➔ Big-O Complexity ➔ Arrays & Strings ➔ Searching & Sorting ➔ Hashing ➔ Recursion & Backtracking ➔ Linked Lists, Stacks & Queues ➔ Trees & BSTs ➔ Graphs & Traversals ➔ Greedy Algorithms ➔ Dynamic Programming ➔ FAANG Interview Patterns.
-2. **🌐 Full Stack Development (JavaScript / React / Node):**
-   - *12 Skills:* Semantic HTML/CSS ➔ JavaScript Fundamentals ➔ DOM Manipulation ➔ Git & GitHub ➔ React Fundamentals ➔ APIs & Async JS ➔ Backend with Node/Express ➔ RESTful APIs ➔ Relational Databases (SQL) ➔ Authentication & JWT ➔ Testing & Deployment ➔ Capstone Showcase.
-3. **🤖 AI / Machine Learning (Python):**
-   - *12 Skills:* Python Foundations ➔ Functions & OOP ➔ NumPy ➔ Pandas Wrangling ➔ Data Visualization (Seaborn/Matplotlib) ➔ Statistics & Probability ➔ Data Preprocessing ➔ Supervised Learning ➔ Model Evaluation & ROC-AUC ➔ Feature Engineering & Pipelines ➔ Neural Networks ➔ Model Deployment with FastAPI.
-
-### 🤖 CodeQuest AI — Context-Aware Coding Mentor
-*Tagline: "Your personal coding mentor, one question away."*
-
-Accessible from anywhere in the application via a persistent floating launcher or contextual in-page actions:
-- **Collapsible Side-Panel Interface:** 420px wide desktop panel (full-screen responsive on mobile) with smooth transitions, session persistence, and zero screen obstruction.
-- **Deep Context Awareness:** Automatically synchronizes with the user's active route, track (DSA, Full Stack, AI/ML), selected topic, current daily quest, completed skills, active project, and milestone.
-- **Pedagogical Mentorship Modes:**
-  - **Explain Concepts:** Deep-dives into theory, time/space complexity analysis, and realistic code patterns.
-  - **Progressive Hinting:** Guides learners through roadblocked tasks step-by-step without giving away answers immediately.
-  - **Code Debugging:** Analyzes error messages, identifies edge cases, and provides corrected snippets with explanations.
-  - **Resource Citing:** Recommends verified links directly from the 36-topic catalogue (`takeuforward`, `MDN`, `Full Stack Open`, `Google ML`).
-  - **Architecture Reviews:** Guides portfolio project milestones, system design, and file structuring.
-- **Flexible Provider Architecture:**
-  - **Built-in Contextual Offline Mentor Engine:** Operates instantly out-of-the-box with zero API keys required, delivering curated contextual assistance.
-  - **Custom Server Endpoint Support:** Configurable via in-panel settings to connect to your remote `/api/chat` or LLM gateway.
-- **Rich Markdown & Code Blocks:** Supports syntax-highlighted code blocks, one-click copy buttons, structured bullet points, and smart contextual prompt suggestions.
-
-### 🎨 Linear & Notion-Inspired Professional Design System
-Engineered for focus and visual restraint:
-- **Palette:** Warm off-white canvas (`#F8F9FB`), clean white surfaces (`#FFFFFF`), crisp charcoal typography (`#17191D`), muted secondary text (`#68707D`), and subtle borders (`#E5E7EB`) with an understated accent blue (`#356AE6`).
-- **Restrained Visuals:** Clean 6–8px border radii, subtle 1px dividers, high-density scannable tables, and zero distracting arcade neon or purple gradients.
-
-### 🏗️ "Build My Project" Portfolio Trackers
-Each path features 3 graduated starter projects (9 total) that evolve as you learn:
-- **DSA:** *Practice & Revision Tracker*, *Interactive Algorithm Visualizer*, *FAANG Pattern Dashboard*.
-- **Full Stack:** *Personal Portfolio & Blog*, *Student Productivity & Habit Dashboard*, *Campus Task & Event Collaboration Hub*.
-- **AI/ML:** *Exploratory Data Analysis Dashboard*, *Academic Performance Predictor*, *ML-Powered Prediction Web Application*.
+Learners select from three core tracks:
+- **DSA & Coding Interviews (C++)**: Algorithms, algorithmic paradigms, and interview patterns.
+- **Full Stack Development (JavaScript / React / Node.js)**: Modern web foundations, APIs, databases, and deployment.
+- **AI & Machine Learning (Python)**: Data wrangling, statistics, supervised learning, and neural network foundations.
 
 ---
 
-## 🛠️ Tech Stack
+## Core Features
 
-- **Framework:** [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Bundler:** [Vite](https://vitejs.dev/)
-- **Routing:** [React Router v7](https://reactrouter.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Styling:** Custom CSS Design System with dark-first developer aesthetic (Charcoal `#0a0b0f`, Purple `#8b5cf6`, Cyan `#22d3ee`, Neon Green `#4ade80`).
-- **State & Storage:** Persistent `localStorage` abstraction layer with demo reset and sample persona seeders.
+### Daily Quest Engine
+- **Targeted Learning Objectives**: Generates daily study missions tied directly to the learner's active roadmap position and time commitment.
+- **Sequential Checklist**: Structured 3-step loop: Concept Study &rarr; Hands-on Practice &rarr; Verification Challenge.
+- **Verified Resource Links**: Direct links to documentation and companion practice problems for every topic.
+- **Streak & Consistency Tracking**: Calendar-based streak tracking with idempotent reward distribution.
+
+### Curated Resource Catalogue
+A centralized, typed catalogue covering all 36 curriculum topics with verified external resources:
+- **DSA**: takeUforward (Striver's A2Z DSA Sheet), LeetCode companion exercises.
+- **Full Stack**: MDN Web Docs Curriculum and University of Helsinki's Full Stack Open.
+- **AI / ML**: Google Machine Learning Crash Course and companion Kaggle / Colab exercises.
+
+### In-App Coding Mentor
+- **Context-Aware Assistance**: Detects the active curriculum track, current lesson, daily quest, and active project milestone.
+- **Pedagogical Support**: Explains concepts with code snippets and complexity analyses, provides progressive hints without spoiling answers, and aids in debugging.
+- **Flexible Provider Architecture**: Runs on a built-in offline engine by default, with support for custom server API endpoints (`/api/chat`).
+
+### Adaptive Roadmaps & Portfolio Deliverables
+- **Prerequisite Dependency Graph**: Unlocks downstream skills as prerequisite milestones are completed.
+- **Skill Fast-Tracking**: Verify existing knowledge to skip redundant introductory topics.
+- **Milestone-Driven Projects**: Real-world portfolio applications with incremental implementation milestones.
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Framework** | React 19 + TypeScript |
+| **Build Tool** | Vite 8 |
+| **Routing** | React Router v7 |
+| **Icons** | Lucide React |
+| **State & Persistence** | Context API + `localStorage` / `sessionStorage` |
+| **Styling** | Custom CSS Design System |
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- Node.js (version 18+ recommended)
+- Node.js (v18 or higher)
 - npm or pnpm
 
 ### Installation
 
-1. **Clone the repository:**
+1. Clone the repository:
    ```bash
    git clone https://github.com/ashwin-kwatra/codequest.git
    cd codequest
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. **Start the development server:**
+3. Start the development server:
    ```bash
-   npm run dev -- --port 3000
+   npm run dev
    ```
 
-4. **Open your browser:**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+4. Open your browser:
+   Visit [http://localhost:5173](http://localhost:5173) (or the port indicated in your terminal).
 
 ### Production Build
-To create an optimized production bundle:
+
 ```bash
 npm run build
 ```
 
 ---
 
-## 🧪 Hackathon Demo & Testing Guide
-
-For quick evaluation during live demonstrations or judging:
-
-1. **Test Pre-configured Personas (1-Click):**
-   - On the [Landing Page](http://localhost:3000), locate the **Instant Hackathon Demo Profiles** box right beneath the hero buttons.
-   - Click **Persona A (Taylor - Lost Beginner)**, **Persona B (Jordan - Directionless AI/ML)**, or **Persona C (Alex - Goal-Driven DSA)** to instantly load a realistic state with completed milestones, streak history, and active daily quests.
-2. **Test Daily Quest Hero & Checklist:**
-   - In the **Dashboard**, interact with the **Today's Quest** hero card.
-   - Click the checkmarks for **Step 1 (Study Concept)** and **Step 2 (Hands-On Practice)** to see live XP bursts.
-   - Check off **Step 3 (Challenge)** to unlock the celebration state, key takeaways summary, and +50 XP completion bonus.
-   - Click **Start Next Quest Early ⚡** to demonstrate advancing to the next curriculum topic without losing history.
-3. **Test Curated Resources:**
-   - Click **"Open Resource ↗"** on any quest or go to **Roadmap** and click **"Resources & Learn"** on any topic.
-   - Notice direct links to Striver's A2Z DSA sheet, MDN Curriculum, Full Stack Open, or Google ML Crash Course, complete with companion practice problems.
-4. **Test Adaptive Prerequisite Verification:**
-   - In the **Roadmap**, click on any unlocked skill and choose **"★ I Already Know This (Verify & Skip)"**. Complete the quick checkpoint to verify how dependent skills unlock automatically.
-5. **Reset Demo Data:**
-   - Click **Reset Demo** in the sidebar or profile page to clear `localStorage` and restart anytime.
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```
+codequest/
 ├── src/
-│   ├── components/         # Reusable UI components (Sidebar, TopBar, etc.)
-│   │   └── AiAssistant/    # CodeQuest AI floating launcher, side panel & Markdown renderer
-│   ├── context/            # AppContext (gamification/quests) & AiContext (mentor state)
+│   ├── components/
+│   │   ├── AiAssistant/     # Collapsible assistant panel, floating launcher, markdown parser
+│   │   ├── Sidebar.tsx      # Application navigation sidebar
+│   │   └── ...
+│   ├── context/
+│   │   ├── AppContext.tsx   # Global application state, progress, and gamification
+│   │   └── AiContext.tsx    # Mentor panel state, messaging, and provider integration
 │   ├── data/
-│   │   ├── curriculum.ts   # Core track skills, tasks, and portfolio projects
-│   │   └── resources.ts    # Centralized, typed curated resources catalogue (36 topics)
+│   │   ├── curriculum.ts    # 36 curriculum topics, tasks, and project milestones
+│   │   └── resources.ts     # Centralized, typed curated learning resources
 │   ├── engine/
-│   │   ├── aiContext.ts    # Learner context extraction (track, topic, quest, milestone)
-│   │   ├── aiProvider.ts   # AI provider interface, server gateway & offline contextual mentor
-│   │   ├── dailyQuest.ts   # Daily quest generator & calendar date engine
-│   │   └── recommendation.ts # Timeline calculator & archetype inference
+│   │   ├── aiContext.ts     # Learner context resolution (track, topic, quest, project)
+│   │   ├── aiProvider.ts    # Assistant provider abstraction and offline reasoning engine
+│   │   ├── dailyQuest.ts    # Daily quest generation and date rollover logic
+│   │   └── recommendation.ts# Timeline calculation and career track recommendations
 │   ├── pages/
-│   │   ├── Landing.tsx     # Hero page & demo profile launchers
-│   │   ├── Onboarding.tsx  # 7-step career assessment wizard
-│   │   ├── Recommendation.tsx # Path evaluation & first task preview
-│   │   ├── Dashboard.tsx   # Quest-First Hero, 7-day history, stats & AI triggers
-│   │   ├── Roadmap.tsx     # Connected skill tree with curated resource & AI modals
-│   │   ├── TaskDetail.tsx  # Step-by-step instructions, curated guides & AI hint triggers
-│   │   ├── Projects.tsx    # Curated portfolio projects & AI architecture guidance
-│   │   └── Profile.tsx     # Stats, achievements, persona card & track switcher
-│   ├── store/              # localStorage persistence layer & calendar streak logic
-│   ├── types.ts            # Core TypeScript interfaces (CuratedResource, DailyQuest, LearnerContext, etc.)
-│   ├── App.tsx             # Route definitions & AI assistant mounting
-│   ├── index.css           # Refined Linear/Notion-inspired design system
-│   └── main.tsx            # Application entry point
+│   │   ├── Landing.tsx      # Welcome page and profile launchers
+│   │   ├── Onboarding.tsx   # Guided 7-step career assessment
+│   │   ├── Recommendation.tsx# Path evaluation and curriculum preview
+│   │   ├── Dashboard.tsx    # Workspace home, daily quest card, and activity history
+│   │   ├── Roadmap.tsx      # Visual curriculum tree with topic resource drawers
+│   │   ├── TaskDetail.tsx   # Lesson instructions, companion links, and hints
+│   │   ├── Projects.tsx     # Portfolio project workspaces and milestone checklists
+│   │   └── Profile.tsx      # User statistics, achievements, and track settings
+│   ├── store/
+│   │   └── storage.ts       # Persistence layer and calendar streak calculations
+│   ├── types.ts             # TypeScript interfaces and domain models
+│   ├── App.tsx              # Application shell and route configuration
+│   └── index.css            # Design system, layout variables, and typography
 ├── package.json
 └── vite.config.ts
 ```
 
 ---
 
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+## License
+
+MIT

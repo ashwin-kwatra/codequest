@@ -1,8 +1,3 @@
-// ============================================================================
-// CodeQuest — Daily Quest Generation Engine
-// Generates personalized, milestone-backed quests for the learner's active day
-// ============================================================================
-
 import type { DailyQuest, DailyQuestStep, TrackId, DailyTime } from '../types';
 import { TRACKS } from '../data/curriculum';
 import { getPrimaryResourceForTopic } from '../data/resources';
